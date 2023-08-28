@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+Manage products
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    {% if all_products %}
+    <table class="table mt-3 mb-3">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price per unit</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in all_products %}
+            <tr>
+                <th scope="row">{{ product.id }}</th>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.qty }}</td>
+                <td>{{ product.price }}</td>
+                <td><a href="{{ url_for('views.update_product', product_id=product.id) }}"
+                        class="btn btn-secondary btn-sm" role="button">Update
+                    </a>
+                    <a href="{{ url_for('views.delete_product', product_id=product.id) }}" class="btn btn-danger btn-sm"
+                        role="button">Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %} <h1>No products yet</h1>
+    {% endif %}
+    <a href="{{ url_for('views.new_product') }}" class="btn btn-primary" role="button">Add new product</a>
+</div>
+
+{% endblock %}
